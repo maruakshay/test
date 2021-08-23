@@ -55,3 +55,31 @@ color : ${props => props.color};
 padding : 10px 0;
 text-align : center;
 `
+
+export const Input = styled.input
+`
+width : 50%;
+margin: auto;
+`
+export const Container = styled.div
+`
+width : 50%;
+margin: auto;
+display: flex;
+flex-flow : column wrap;
+align-items : center;
+input{
+    font-size : 24px;
+    text-align: center
+}
+button {
+    width : 30%;
+    
+}
+div{
+    font-size : 35px;
+    font-weight: 500;
+    text-align : center;
+}
+
+`

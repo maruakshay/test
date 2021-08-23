@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {H1} from '../components/Components'
+import {H1, Container} from '../components/Components'
 import  * as json from '../Wallet_json/Balance.json'
 import  Web3 from 'web3';
 import {AbiItem} from 'web3-utils';
@@ -30,10 +30,8 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     const [amt, setAmount] = useState('');
     const [balance , setBalance] = useState(0);
     useEffect(() => {
-        let numbers : number = 310;
-        web3.eth.getBlock(310).then(data => console.log(data));
-        numbers+= 1;
-    }, [setBalance])
+       web3.eth.getAccounts().then(data => console.log(data))
+    }, [])
     web3.eth.getAccounts().then((acc : string[]) =>
     {
         
@@ -69,10 +67,13 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     return (
         <>
        <H1 background={background} color={color}>This is the Home Page</H1>
+       <Container>
        <input type='text' placeholder='enter the amount' onChange={(e) => setAmount(e.target.value)} />
        <button onClick={Widthdraw}>Withdraw</button>
        <button onClick={Deposit}>Deposit</button>
        <div>{balance}</div>
+       </Container>
+       
         </>
     )
 }
