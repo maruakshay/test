@@ -10,7 +10,7 @@ import {
   import {HomePage} from './pages/HomePage';
   import {AboutPage} from './pages/AboutPage'
 const App : React.FC = ()  => {
-    let [light, setLight]  = useState(false);
+    let [light, setLight]  = useState(true);
     const handleClick = () => {
         setLight(!light);
     }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {H1} from '../components/Components'
 import  * as json from '../Wallet_json/Balance.json'
 import  Web3 from 'web3';
@@ -28,28 +28,48 @@ const contract = new web3.eth.Contract(data.abi, data.address);
 export const HomePage : React.FC<Mode>= ({background, color}) => {
    
     const [amt, setAmount] = useState('');
-    const Deposit = () => {
+    const [balance , setBalance] = useState(0);
+    // useEffect(() => {
+       
+    // }, [])
+    web3.eth.getAccounts().then((acc : string[]) =>
+    {
+        
+        let account = acc[1];
+        web3.eth.getBalance(account).then((bal : string) => 
+        {
+            setBalance(parseInt(bal));    
+       })
+   })
+    
+   
+    const Deposit = () : void => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
-            let account = accounts[2];
-            contract.methods.setDeposit(amount).send({from : account});
-            contract.methods.getBalance().call().then((balance : number) => {console.log(`..........Deposit balance is ${balance}`)})
+            let sender = accounts[1];
+            let receiver = accounts[1];
+            contract.methods.setDeposit(amount).send({from : sender, to: receiver});
+            contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
         })
     }
-    const Widthdraw = () => {
+    const Widthdraw = () : void => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
-            let account = accounts[2];
-            contract.methods.setWithdraw(amount).send({from : account});
-            contract.methods.getBalance().call().then((balance : number) => {console.log(`.........Withdraw balance is ${balance}`)})
+            let sender = accounts[1];
+            contract.methods.setWithdraw(amount).send({from : sender});
+            contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
         })
     }
+   
+        
+
     return (
         <>
        <H1 background={background} color={color}>This is the Home Page</H1>
        <input type='text' placeholder='enter the amount' onChange={(e) => setAmount(e.target.value)} />
        <button onClick={Widthdraw}>Withdraw</button>
        <button onClick={Deposit}>Deposit</button>
+       <div>{balance}</div>
         </>
     )
 }
