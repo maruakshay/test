@@ -29,9 +29,11 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
    
     const [amt, setAmount] = useState('');
     const [balance , setBalance] = useState(0);
-    // useEffect(() => {
-       
-    // }, [])
+    useEffect(() => {
+        let numbers : number = 310;
+        web3.eth.getBlock(310).then(data => console.log(data));
+        numbers+= 1;
+    }, [setBalance])
     web3.eth.getAccounts().then((acc : string[]) =>
     {
         
@@ -61,7 +63,8 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
         })
     }
    
-        
+        // blocks getting 
+       
 
     return (
         <>
