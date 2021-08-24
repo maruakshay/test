@@ -25,13 +25,17 @@ const data : Account = {
     address : json.networks[5777].address
 }
 const contract = new web3.eth.Contract(data.abi, data.address);
+console.log(contract.defaultBlock)
 export const HomePage : React.FC<Mode>= ({background, color}) => {
    
     const [amt, setAmount] = useState('');
     const [balance , setBalance] = useState(0);
+    const [address, setAddress] = useState('');
     useEffect(() => {
-       web3.eth.getAccounts().then(data => console.log(data))
-    }, [])
+       web3.eth.getAccounts().then(data => console.log(data));
+
+       // default block address
+    }, [setBalance])
     web3.eth.getAccounts().then((acc : string[]) =>
     {
         
@@ -46,9 +50,9 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     const Deposit = () : void => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
-            let sender = accounts[1];
+            let sender = address;
             let receiver = accounts[1];
-            contract.methods.setDeposit(amount).send({from : sender, to: receiver});
+            contract.methods.setDeposit(amount).send({from : receiver});
             contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
         })
     }
@@ -56,12 +60,16 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
             let sender = accounts[1];
-            contract.methods.setWithdraw(amount).send({from : sender});
+            let receiver = address;
+            contract.methods.setWithdraw(amount).send({from : sender , to: receiver});
             contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
         })
     }
+    
+
    
-        // blocks getting 
+        // address here 
+    
        
 
     return (
@@ -69,9 +77,11 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
        <H1 background={background} color={color}>This is the Home Page</H1>
        <Container>
        <input type='text' placeholder='enter the amount' onChange={(e) => setAmount(e.target.value)} />
+       <input type='text' placeholder='enter the address' onChange={(e) => setAddress(e.target.value)} />
        <button onClick={Widthdraw}>Withdraw</button>
        <button onClick={Deposit}>Deposit</button>
        <div>{balance}</div>
+    
        </Container>
        
         </>
