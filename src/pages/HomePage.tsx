@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {H1, Container} from '../components/Components'
+import {H1, Container, Button} from '../components/Components'
 import  * as json from '../Wallet_json/Balance.json'
 import  Web3 from 'web3';
 import {AbiItem} from 'web3-utils';
@@ -79,11 +79,11 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     return (
         <>
        <H1 background={background} color={color}>This is the Home Page</H1>
-       <Container>
+       <Container background={background} color={color}>
        <input type='text' placeholder='enter the amount' onChange={(e) => setAmount(e.target.value)} />
        <input type='text' placeholder='enter the address' onChange={(e) => setAddress(e.target.value)} />
-       <button onClick={Widthdraw}>Withdraw</button>
-       <button onClick={Deposit}>Deposit</button>
+       <Button background={background} color={color} onClick={Widthdraw}>send</Button>
+       {/* <button onClick={Deposit}>Deposit</button> */}
        <div> the balance is : <br/>{balance}</div>
        </Container>
        

@@ -52,8 +52,9 @@ export const H1 = styled.h1<Mode>
 `
 background-color : ${props => props.background};
 color : ${props => props.color};
-padding : 10px 0;
+margin-top: 10px;
 text-align : center;
+margin-block-end: 0;
 `
 
 export const Input = styled.input
@@ -61,25 +62,32 @@ export const Input = styled.input
 width : 50%;
 margin: auto;
 `
-export const Container = styled.div
+export const Container = styled.div<Mode>
 `
-width : 50%;
 margin: auto;
 display: flex;
 flex-flow : column wrap;
 align-items : center;
+color : ${props => props.color};
+background-color : ${props => props.background};
+
 input{
     font-size : 24px;
     text-align: center
-}
-button {
-    width : 30%;
-    
 }
 div{
     font-size : 35px;
     font-weight: 500;
     text-align : center;
 }
+
+`
+export const Button = styled.button<Mode>
+`
+padding :10px 50px;
+background-color : ${props => props.background};
+color : ${props => props.color} ;
+margin-top : 2rem;
+border : 0.5px solid ${props => props.color}; 
 
 `
