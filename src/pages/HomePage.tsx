@@ -31,10 +31,10 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     const [amt, setAmount] = useState<string>('');
     const [balance , setBalance] = useState<number>(0);
     const [address, setAddress] = useState<string>('');
-    const [newBal, setNewbal] = useState<number>(0);
+    
     useEffect(() => {
        web3.eth.getAccounts().then(data => console.log(data));
-
+        web3.eth.getGasPrice().then(price => console.log(price));
        // default block address
     }, [setBalance])
     web3.eth.getAccounts().then((acc : string[]) =>
@@ -56,7 +56,6 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
             let receiver = accounts[2];
             contract.methods.setDeposit(amount).send({from : receiver});
             contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
-            contract.methods.getBalance().call().then((bal : number) => setNewbal(bal));
         })
     }
     const Widthdraw = () : void => {
@@ -69,11 +68,10 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
             
         })
     }
-    // receiver balance 
+    const Block  = () : void => {
 
-   
-        // address here 
-    
+
+    }
        
 
     return (

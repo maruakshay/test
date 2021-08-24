@@ -55,12 +55,14 @@ color : ${props => props.color};
 margin-top: 10px;
 text-align : center;
 margin-block-end: 0;
+transition : all ease-in-out 0.5s;
 `
 
 export const Input = styled.input
 `
 width : 50%;
 margin: auto;
+transition : all ease-in-out 0.5s;
 `
 export const Container = styled.div<Mode>
 `
@@ -70,6 +72,7 @@ flex-flow : column wrap;
 align-items : center;
 color : ${props => props.color};
 background-color : ${props => props.background};
+transition : all ease-in-out 0.5s;
 
 input{
     font-size : 24px;
@@ -89,5 +92,6 @@ background-color : ${props => props.background};
 color : ${props => props.color} ;
 margin-top : 2rem;
 border : 0.5px solid ${props => props.color}; 
+transition : all ease-in-out 0.5s;
 
 `
