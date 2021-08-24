@@ -28,9 +28,10 @@ const contract = new web3.eth.Contract(data.abi, data.address);
 console.log(contract.defaultBlock)
 export const HomePage : React.FC<Mode>= ({background, color}) => {
    
-    const [amt, setAmount] = useState('');
-    const [balance , setBalance] = useState(0);
-    const [address, setAddress] = useState('');
+    const [amt, setAmount] = useState<string>('');
+    const [balance , setBalance] = useState<number>(0);
+    const [address, setAddress] = useState<string>('');
+    const [newBal, setNewbal] = useState<number>(0);
     useEffect(() => {
        web3.eth.getAccounts().then(data => console.log(data));
 
@@ -39,33 +40,36 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     web3.eth.getAccounts().then((acc : string[]) =>
     {
         
-        let account = acc[1];
+        let account = acc[2];
         web3.eth.getBalance(account).then((bal : string) => 
         {
-            setBalance(parseInt(bal));    
+            setBalance(parseInt(bal)/1000000000000000000);    
        })
    })
-    
+   
+    // newContract.methods.getBalance().call().then((bal : number) => setNewbal(bal));
    
     const Deposit = () : void => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
             let sender = address;
-            let receiver = accounts[1];
+            let receiver = accounts[2];
             contract.methods.setDeposit(amount).send({from : receiver});
             contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
+            contract.methods.getBalance().call().then((bal : number) => setNewbal(bal));
         })
     }
     const Widthdraw = () : void => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
-            let sender = accounts[1];
+            let sender = accounts[2];
             let receiver = address;
             contract.methods.setWithdraw(amount).send({from : sender , to: receiver});
             contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
+            
         })
     }
-    
+    // receiver balance 
 
    
         // address here 
@@ -80,8 +84,7 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
        <input type='text' placeholder='enter the address' onChange={(e) => setAddress(e.target.value)} />
        <button onClick={Widthdraw}>Withdraw</button>
        <button onClick={Deposit}>Deposit</button>
-       <div>{balance}</div>
-    
+       <div> the balance is : <br/>{balance}</div>
        </Container>
        
         </>
