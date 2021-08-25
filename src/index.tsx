@@ -1,39 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import { createStore } from 'redux';
-import reducers from './reducers'
-// creating store
-const store = createStore(reducers)
 
-const H1 = styled.h1
+const Container = styled.div
 `
-text-align : center;
-color : red;
 display : block;
+text-align : center;
 `
-const Body = styled.body<Mode>
-`
-display : block ;
-background-color : ${props => props.background};
-color : ${props => props.color};
-width: 100%;
-margin: 0;
-height: calc(100vh - 29px);
-`
-type Mode = {
-    background : string,
-    color : string
-}
-const App : React.FC = () : any => {
+const App : React.FC = () => {
 
     return (
         <>
-        <Body background='black' color='white'>
-            <H1>This is the redux app</H1>
-            <h2>hey there </h2>
-        </Body>
+            <Container>
+                <h1>Redux Store</h1>
+            </Container>
         </>
     )
 }
+
 ReactDOM.render(<App/>, document.getElementById('root'));
