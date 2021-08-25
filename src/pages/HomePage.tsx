@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {H1, Container, Button} from '../components/Components'
 import  * as json from '../Wallet_json/Balance.json'
 import  Web3 from 'web3';
+import detectEthereumProvider from '@metamask/detect-provider';
 import {AbiItem} from 'web3-utils';
-const web3 = new Web3('http://127.0.0.1:8545');
+const web3 = new Web3(Web3.givenProvider ||'http://127.0.0.1:8545');
 // enum lists {
 //     abi = json.abi, 
 //     address = json.networks[5777].address
@@ -40,7 +41,7 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     web3.eth.getAccounts().then((acc : string[]) =>
     {
         
-        let account = acc[2];
+        let account = acc[0];
         web3.eth.getBalance(account).then((bal : string) => 
         {
             setBalance(parseInt(bal)/1000000000000000000);    
@@ -53,7 +54,7 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
             let sender = address;
-            let receiver = accounts[2];
+            let receiver = accounts[0];
             contract.methods.setDeposit(amount).send({from : receiver});
             contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
         })
@@ -61,7 +62,7 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
     const Widthdraw = () : void => {
         let amount = amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
-            let sender = accounts[2];
+            let sender = accounts[0];
             let receiver = address;
             contract.methods.setWithdraw(amount).send({from : sender , to: receiver});
             contract.methods.getBalance().call().then((balance : number) => setBalance(balance));
