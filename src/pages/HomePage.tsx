@@ -69,7 +69,7 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
         })
     }
     const Block  = () : void => {
-
+        // test
 
     }
        
