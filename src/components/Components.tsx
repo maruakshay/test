@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {createGlobalStyle} from 'styled-components';
 
 export const Header = styled.header
 `
@@ -94,4 +94,39 @@ margin-top : 2rem;
 border : 0.5px solid ${props => props.color}; 
 transition : all ease-in-out 0.5s;
 
+`
+
+// making theme buttons
+
+interface Colors {
+    primary : string, 
+    secondary : string, 
+    tertiary : string, 
+}
+
+export const colors : Colors = {
+    primary : '#0000',
+    secondary : '#ffff',
+    tertiary : 'green'
+}
+
+interface theme {
+    backgroundColor : string,
+    color : string,
+    margin : string,
+    padding : string,
+    fontSize : string
+}
+export const Theme : theme = {
+    backgroundColor : colors.primary,
+    color : colors.secondary,
+    margin : '0',
+    padding : '0px 15px',
+    fontSize : '24px'
+}
+export const GlobalStyle = createGlobalStyle
+`
+body {
+    background: #efebeb;
+}
 `

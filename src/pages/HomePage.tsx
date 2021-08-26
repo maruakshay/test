@@ -9,7 +9,7 @@ const web3 = new Web3(Web3.givenProvider ||'http://127.0.0.1:8545');
 //     abi = json.abi, 
 //     address = json.networks[5777].address
 // }
-
+//
 // 
 
 
@@ -26,7 +26,8 @@ const data : Account = {
     address : json.networks[5777].address
 }
 const contract = new web3.eth.Contract(data.abi, data.address);
-console.log(contract.defaultBlock)
+console.log(contract.defaultBlock);
+web3.eth.net.getId().then((id : number) => console.log(id));
 export const HomePage : React.FC<Mode>= ({background, color}) => {
    
     const [amt, setAmount] = useState<string>('');
@@ -60,7 +61,7 @@ export const HomePage : React.FC<Mode>= ({background, color}) => {
         })
     }
     const Widthdraw = () : void => {
-        let amount = amt;
+        let amount =amt;
         web3.eth.getAccounts().then((accounts : any[]) => {
             let sender = accounts[0];
             let receiver = address;
